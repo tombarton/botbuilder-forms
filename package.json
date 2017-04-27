@@ -1,0 +1,30 @@
+{
+  "name": "botbuilder-forms",
+  "version": "0.0.1",
+  "description": "A simple module that allows you to easily add form flows to the Node Bot Builder SDK.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "author": "Tom Barton <tom.r.barton@gmail.com> (http://tombarton.codes)",
+  "license": "WTFPL",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tombarton/botbuilder-forms"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.3.0"
+  },
+  "dependencies": {
+    "botbuilder": "^3.7.0"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it"
+    ]
+  }
+}
