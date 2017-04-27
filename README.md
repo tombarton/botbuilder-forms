@@ -4,7 +4,7 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 
-A simple module that allows you to easily add form flows to the Node Bot Builder SDK.
+A simple module that allows you to easily add form flows to the Node [Bot Builder SDK](https://github.com/Microsoft/BotBuilder).
 
 ## Installation
 
