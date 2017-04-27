@@ -36,7 +36,8 @@ A simple module that allows you to easily add form flows to the Node Bot Builder
     }
   ]
 
-  bot.library(formBuilder.createLibrary())```
+  bot.library(formBuilder.createLibrary())
+  ```
 
 ### Questions
 
