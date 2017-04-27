@@ -1,5 +1,9 @@
 # Form Builder
 
+[![Build Status](https://travis-ci.org/tombarton/botbuilder-forms.svg?branch=master)](https://travis-ci.org/tombarton/botbuilder-forms)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+
 A simple module that allows you to easily add form flows to the Node Bot Builder SDK.
 
 ## Installation
