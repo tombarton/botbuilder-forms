@@ -1,6 +1,6 @@
 {
   "name": "botbuilder-forms",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple module that allows you to easily add form flows to the Node Bot Builder SDK.",
   "main": "index.js",
   "scripts": {
