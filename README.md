@@ -61,7 +61,7 @@ Entities can be passed to the form builder via the arguments parameter. In order
 
 * {array} entities - An array of entity data that been returned from LUIS.
 * {array} requirements - An array of entity titles that you want to detect.
-* {boolean} threshold - The minimum LUIS confidence threshold that you want each entity to meet.
+* {integer} threshold - The minimum LUIS confidence threshold that you want each entity to meet.
 * {function} callback - A callback to return the results.
 
  It can be used as following:
