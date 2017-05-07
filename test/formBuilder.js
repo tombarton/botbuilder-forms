@@ -1,12 +1,13 @@
 const assert = require('assert')
 const builder = require('botbuilder')
 const common = require('./common')
+const formBuilder = require('../index')
 
 describe('Bot Tests', () => {
   it('Local testing setup', (done) => {
     var connector = new builder.ConsoleConnector()
     var bot = new builder.UniversalBot(connector)
-    bot.library(require('../index').createLibrary())
+    bot.library(formBuilder.createLibrary())
     bot.dialog('/', [
       function (session) {
         session.send('Testing')
@@ -21,7 +22,7 @@ describe('Bot Tests', () => {
   it('Form throws error if args are not supplied', (done) => {
     var connector = new builder.ConsoleConnector()
     var bot = new builder.UniversalBot(connector)
-    bot.library(require('../index').createLibrary())
+    bot.library(formBuilder.createLibrary())
     var dialog = new builder.IntentDialog()
     bot.dialog('/', dialog)
       .matches(/start/i, function (session) {
@@ -36,7 +37,7 @@ describe('Bot Tests', () => {
   it('Form throws error if questions object is missing', (done) => {
     var connector = new builder.ConsoleConnector()
     var bot = new builder.UniversalBot(connector)
-    bot.library(require('../index').createLibrary())
+    bot.library(formBuilder.createLibrary())
     var dialog = new builder.IntentDialog()
     bot.dialog('/', dialog)
       .matches(/start/i, function (session) {
@@ -64,7 +65,7 @@ describe('Bot Tests', () => {
     ]
     var connector = new builder.ConsoleConnector()
     var bot = new builder.UniversalBot(connector)
-    bot.library(require('../index').createLibrary())
+    bot.library(formBuilder.createLibrary())
     var dialog = new builder.IntentDialog()
     bot.dialog('/', dialog)
       .matches(/start/i, function (session) {
@@ -88,7 +89,7 @@ describe('Bot Tests', () => {
     ]
     var connector = new builder.ConsoleConnector()
     var bot = new builder.UniversalBot(connector)
-    bot.library(require('../index').createLibrary())
+    bot.library(formBuilder.createLibrary())
     var dialog = new builder.IntentDialog()
     bot.dialog('/', dialog)
       .matches(/start/i, function (session) {
@@ -127,7 +128,7 @@ describe('Bot Tests', () => {
     ]
     var connector = new builder.ConsoleConnector()
     var bot = new builder.UniversalBot(connector)
-    bot.library(require('../index').createLibrary())
+    bot.library(formBuilder.createLibrary())
     var dialog = new builder.IntentDialog()
     bot.dialog('/', dialog)
       .matches(/start/i, function (session) {
@@ -171,12 +172,12 @@ describe('Bot Tests', () => {
     ]
     var connector = new builder.ConsoleConnector()
     var bot = new builder.UniversalBot(connector)
-    bot.library(require('../index').createLibrary())
+    bot.library(formBuilder.createLibrary())
     var dialog = new builder.IntentDialog()
     bot.dialog('/', dialog)
       .matches(/start/i, [
         function (session) {
-          session.beginDialog('FormBuilder:/', {questions: questions, entityData: { Number: '07777777777' }})
+          session.beginDialog('FormBuilder:/', {questions: questions, entities: { Number: '07777777777' }})
         },
         function (session, results) {
           session.send('Complete')
@@ -215,12 +216,12 @@ describe('Bot Tests', () => {
     ]
     var connector = new builder.ConsoleConnector()
     var bot = new builder.UniversalBot(connector)
-    bot.library(require('../index').createLibrary())
+    bot.library(formBuilder.createLibrary())
     var dialog = new builder.IntentDialog()
     bot.dialog('/', dialog)
       .matches(/start/i, [
         function (session) {
-          session.beginDialog('FormBuilder:/', {questions: questions, entityData: { Number: '07777777777' }})
+          session.beginDialog('FormBuilder:/', {questions: questions, entities: { Number: '07777777777' }})
         },
         function (session, results) {
           session.send('Complete')

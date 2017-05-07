@@ -9,13 +9,14 @@ lib.dialog('/', [
       } else {
         session.dialogData.questions = args.questions
       }
-      session.dialogData.entityData = args.entityData ? args.entityData : false
+      session.dialogData.entityData = args.entities ? args.entities : false
       session.dialogData.index = args.index ? args.index : 0
       session.dialogData.form = args.form ? args.form : {}
       session.dialogData.reprompt = args.reprompt ? args.reprompt : false
     } else {
       return session.error('Arguments were not supplied or were undefined')
     }
+
     let index = session.dialogData.index
     let questions = session.dialogData.questions
 
@@ -25,7 +26,7 @@ lib.dialog('/', [
       if (session.dialogData.entityData.hasOwnProperty(questions[index].field)) {
         var prompt = questions[session.dialogData.index].prompt
         // Replace placeholder text with user data
-        prompt = prompt.replace('{' + questions[index].field + '}', session.dialogData.entityData[questions[session.dialogData.index].field])
+        prompt = prompt.replace('{' + questions[index].field + '}', session.dialogData.entityData[questions[index].field])
         builder.Prompts.confirm(session, prompt)
       } else {
         if (!session.dialogData.reprompt) {
@@ -96,4 +97,18 @@ lib.dialog('/', [
 
 module.exports.createLibrary = () => {
   return lib.clone()
+}
+
+module.exports.entityCheck = (entities, requirements, entityThreshold, callback) => {
+  var result = {}
+  for (var entity in entities) {
+    if (entities[entity].score >= entityThreshold) {
+      for (var requirement in requirements) {
+        if (entities[entity].type === requirements[requirement]) {
+          result[requirements[requirement]] = entities[entity].entity
+        }
+      }
+    }
+  }
+  callback(result)
 }

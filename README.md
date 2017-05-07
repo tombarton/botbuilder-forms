@@ -45,7 +45,7 @@ A simple module that allows you to easily add form flows to the Node [Bot Builde
 
 ### Questions
 
-The questions object is passed into the dialog through the dialog arguments parameter. The questions object can consist of the following parameters:
+The questions object is passed into the dialog through the dialog arguments parameter. The questions object can consist of the following properties:
 
   * field
   * question
@@ -57,23 +57,48 @@ The only mandatory properties are `field` and `question`, unless you are plannin
 
 ### Entities
 
-Entities are passed in the dialog arguments parameter, in the exact same fashion as the question object:
+Entities can be passed to the form builder via the arguments parameter. In order to format them correctly, the `entityCheck` helper has been included. It takes the following arguments:
+
+* {array} entities - An array of entity data that been returned from LUIS.
+* {array} requirements - An array of entity titles that you want to detect.
+* {boolean} threshold - The minimum LUIS confidence threshold that you want each entity to meet.
+* {function} callback - A callback to return the results.
+
+ It can be used as following:
 
 ```
-  let entities = {
-    Number: '07777777777'
-  }
-  var bot = new builder.UniversalBot(connector, [
-    function (session) {
-      session.beginDialog('FormBuilder:/', {questions: questions, entityData: entities})
+  bot.dialog('EntityExample', [
+    function (session, args, next) {
+      formBuilder.entityCheck(args.entities, ['Number'], 0.7, function (data) {
+        session.dialogData.entities = data
+      })
+      builder.Prompts.confirm(session, 'Do you want to proceed?')
+    },
+    function (session, results) {
+      session.beginDialog('FormBuilder:/', {questions: questions, entities: session.dialogData.entities})
     },
     function (session, results) {
       console.log(results)
+      session.endDialog('Thank you for completing the form.')
     }
   ])
+
+  let questions = [
+    {
+      field: 'Number',
+      question: 'What is your mobile number?',
+      prompt: 'Is this your phone number: {Number}?',
+      validation: '^(07[0-9]{8,12}|447[0-9]{7,11})$',
+      repromptText: 'Sorry, that doesn\'t look right. Please enter a valid mobile number beginning with 07 or +447'
+    },
+    {
+      field: 'Postcode',
+      question: 'What is your postcode?'
+    }
+  ]
 ```
 
-Ensure that the `field` properties of the questions matches the entities you are attempting to process.
+A working example can be found in `examples/entities.js`.
 
 ### Tests
 
