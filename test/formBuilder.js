@@ -177,7 +177,7 @@ describe('Bot Tests', () => {
     bot.dialog('/', dialog)
       .matches(/start/i, [
         function (session) {
-          session.beginDialog('FormBuilder:/', {questions: questions, entities: { Number: '07777777777' }})
+          session.beginDialog('FormBuilder:/', {questions: questions, entities: { 'Number': '07777777777' }})
         },
         function (session, results) {
           session.send('Complete')
@@ -221,7 +221,7 @@ describe('Bot Tests', () => {
     bot.dialog('/', dialog)
       .matches(/start/i, [
         function (session) {
-          session.beginDialog('FormBuilder:/', {questions: questions, entities: { Number: '07777777777' }})
+          session.beginDialog('FormBuilder:/', {questions: questions, entities: { 'Number': '07777777777' }})
         },
         function (session, results) {
           session.send('Complete')
@@ -242,6 +242,52 @@ describe('Bot Tests', () => {
       {
         in: 'What is your name?',
         out: 'Testing'
+      },
+      {
+        in: 'Complete'
+      }
+    ], done)
+  })
+  it('Multiple Entities', (done) => {
+    var questions = [
+      {
+        field: 'Number',
+        question: 'What is your mobile number?',
+        prompt: 'Is this your phone number: {Number}?',
+        validation: '^(07[0-9]{8,12}|447[0-9]{7,11})$',
+        repromptText: 'Sorry, that doesn\'t look right. Please enter a valid mobile number beginning with 07 or +447'
+      },
+      {
+        field: 'Postcode',
+        question: 'What is your postcode?',
+        prompt: 'Is this your postcode: {Postcode}?',
+        repromptText: 'Sorry, that doesn\'t look right. Please try again.'
+      }
+    ]
+    var connector = new builder.ConsoleConnector()
+    var bot = new builder.UniversalBot(connector)
+    bot.library(formBuilder.createLibrary())
+    var dialog = new builder.IntentDialog()
+    bot.dialog('/', dialog)
+      .matches(/start/i, [
+        function (session) {
+          session.beginDialog('FormBuilder:/', {questions: questions, entities: { 'Number': '07777777777', 'Postcode': 'CB1 1PT' }})
+        },
+        function (session, results) {
+          session.send('Complete')
+        }
+      ])
+    common.testBot(bot, [
+      {
+        out: 'start'
+      },
+      {
+        in: 'Is this your phone number: 07777777777?',
+        out: 'Yes'
+      },
+      {
+        in: 'Is this your postcode: CB1 1PT?',
+        out: 'Yes'
       },
       {
         in: 'Complete'

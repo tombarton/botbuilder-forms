@@ -9,7 +9,7 @@ lib.dialog('/', [
       } else {
         session.dialogData.questions = args.questions
       }
-      session.dialogData.entityData = args.entities ? args.entities : false
+      session.dialogData.entities = args.entities ? args.entities : false
       session.dialogData.index = args.index ? args.index : 0
       session.dialogData.form = args.form ? args.form : {}
       session.dialogData.reprompt = args.reprompt ? args.reprompt : false
@@ -20,13 +20,13 @@ lib.dialog('/', [
     let index = session.dialogData.index
     let questions = session.dialogData.questions
 
-    // Check if entityData exists
-    if (session.dialogData.entityData) {
-      // If the entityData exists and it possesses the property for this question, send a confirm prompt
-      if (session.dialogData.entityData.hasOwnProperty(questions[index].field)) {
+    // Check if entities exists
+    if (session.dialogData.entities) {
+      // If the entities exists and it possesses the property for this question, send a confirm prompt
+      if (session.dialogData.entities.hasOwnProperty(questions[index].field)) {
         var prompt = questions[session.dialogData.index].prompt
         // Replace placeholder text with user data
-        prompt = prompt.replace('{' + questions[index].field + '}', session.dialogData.entityData[questions[index].field])
+        prompt = prompt.replace('{' + questions[index].field + '}', session.dialogData.entities[questions[index].field])
         builder.Prompts.confirm(session, prompt)
       } else {
         if (!session.dialogData.reprompt) {
@@ -53,20 +53,20 @@ lib.dialog('/', [
     if (typeof results.response !== 'string') {
       if (!results.response) {
         var field = questions[session.dialogData.index].field
-        delete session.dialogData.entityData[field]
+        delete session.dialogData.entities[field]
       } else if (currentQuestion.hasOwnProperty('validation')) {
         let validation = new RegExp(currentQuestion.validation)
-        if (validation.test(session.dialogData.entityData[currentQuestion.field])) {
+        if (validation.test(session.dialogData.entities[currentQuestion.field])) {
           field = questions[session.dialogData.index++].field
-          session.dialogData.form[field] = session.dialogData.entityData[field]
+          session.dialogData.form[field] = session.dialogData.entities[field]
         } else {
           field = questions[session.dialogData.index].field
           session.dialogData.reprompt = true
-          delete session.dialogData.entityData[field]
+          delete session.dialogData.entities[field]
         }
       } else {
         field = questions[session.dialogData.index++].field
-        session.dialogData.form[field] = session.dialogData.entityData[field]
+        session.dialogData.form[field] = session.dialogData.entities[field]
       }
     } else {
       if (currentQuestion.hasOwnProperty('validation')) {
