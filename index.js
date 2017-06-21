@@ -27,23 +27,23 @@ lib.dialog('/', [
                 var prompt = questions[session.dialogData.index].prompt
                 // Replace placeholder text with user data
                 prompt = prompt.replace('{' + questions[index].field + '}', session.dialogData.entities[questions[index].field])
-                builder.Prompts.confirm(session, session.localizer.gettext(session.preferredLocale() || "en", prompt))
+                builder.Prompts.confirm(session, session.localizer.gettext(session.preferredLocale(), prompt))
             } else {
                 if (!session.dialogData.reprompt) {
-                    builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale() || "en", questions[index].question))
+                    builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale(), questions[index].question))
                 } else {
                     // If reset boolean is true, send reprompt text
                     delete session.dialogData.reprompt
-                    builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale() || "en", questions[index].repromptText))
+                    builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale(), questions[index].repromptText))
                 }
             }
         } else {
             if (!session.dialogData.reprompt) {
-                builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale() || "en", questions[index].question))
+                builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale(), questions[index].question))
             } else {
                 // If reset boolean is true, send reprompt text
                 delete session.dialogData.reprompt
-                builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale() || "en", questions[index].repromptText))
+                builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale(), questions[index].repromptText))
             }
         }
     },
