@@ -4,7 +4,7 @@
   "description": "A simple module that allows you to easily add form flows to the Node Bot Builder SDK.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec && standard"
   },
   "author": "Tom Barton <tom.r.barton@gmail.com> (http://tombarton.codes)",
   "license": "WTFPL",
@@ -17,7 +17,8 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.3.0"
+    "mocha": "^3.3.0",
+    "standard": "^10.0.2"
   },
   "dependencies": {
     "botbuilder": "^3.7.0"
