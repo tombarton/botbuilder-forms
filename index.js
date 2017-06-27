@@ -26,8 +26,9 @@ lib.dialog('/', [
             if (session.dialogData.entities.hasOwnProperty(questions[index].field)) {
                 var prompt = questions[session.dialogData.index].prompt
                 // Replace placeholder text with user data
+                prompt = session.localizer.gettext(session.preferredLocale(), prompt)
                 prompt = prompt.replace('{' + questions[index].field + '}', session.dialogData.entities[questions[index].field])
-                builder.Prompts.confirm(session, session.localizer.gettext(session.preferredLocale(), prompt))
+                builder.Prompts.confirm(session, prompt)
             } else {
                 if (!session.dialogData.reprompt) {
                     builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale(), questions[index].question))
