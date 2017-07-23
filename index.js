@@ -20,30 +20,31 @@ lib.dialog('/', [
     let index = session.dialogData.index
     let questions = session.dialogData.questions
 
-    // Check if entities exists
+        // Check if entities exists
     if (session.dialogData.entities) {
-      // If the entities exists and it possesses the property for this question, send a confirm prompt
+            // If the entities exists and it possesses the property for this question, send a confirm prompt
       if (session.dialogData.entities.hasOwnProperty(questions[index].field)) {
         var prompt = questions[session.dialogData.index].prompt
-        // Replace placeholder text with user data
+                // Replace placeholder text with user data
+        prompt = session.localizer.gettext(session.preferredLocale(), prompt)
         prompt = prompt.replace('{' + questions[index].field + '}', session.dialogData.entities[questions[index].field])
         builder.Prompts.confirm(session, prompt)
       } else {
         if (!session.dialogData.reprompt) {
-          builder.Prompts.text(session, questions[index].question)
+          builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale(), questions[index].question))
         } else {
-          // If reset boolean is true, send reprompt text
+                    // If reset boolean is true, send reprompt text
           delete session.dialogData.reprompt
-          builder.Prompts.text(session, questions[index].repromptText)
+          builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale(), questions[index].repromptText))
         }
       }
     } else {
       if (!session.dialogData.reprompt) {
-        builder.Prompts.text(session, questions[index].question)
+        builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale(), questions[index].question))
       } else {
-        // If reset boolean is true, send reprompt text
+                // If reset boolean is true, send reprompt text
         delete session.dialogData.reprompt
-        builder.Prompts.text(session, questions[index].repromptText)
+        builder.Prompts.text(session, session.localizer.gettext(session.preferredLocale(), questions[index].repromptText))
       }
     }
   },
@@ -84,12 +85,12 @@ lib.dialog('/', [
       }
     }
 
-    // Check for end of form
+        // Check for end of form
     if (session.dialogData.index >= questions.length) {
-      // Return to original dialog
-      session.endDialogWithResult({formData: session.dialogData.form})
+            // Return to original dialog
+      session.endDialogWithResult({ formData: session.dialogData.form })
     } else {
-      // Next field
+            // Next field
       session.replaceDialog('/', session.dialogData)
     }
   }

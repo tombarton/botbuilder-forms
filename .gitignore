@@ -63,3 +63,5 @@ typings/
 # PHPStorm
 /.idea/
 /.env
+
+package-lock.json
