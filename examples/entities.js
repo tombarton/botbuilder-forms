@@ -1,12 +1,18 @@
-const builder = require('botbuilder')
-const formBuilder = require('botbuilder-forms')
+const builder = require('../node_modules/botbuilder')
+const formBuilder = require('../index.js')
 
 let connector = new builder.ConsoleConnector().listen()
 let bot = new builder.UniversalBot(connector)
-let recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/4f6cd737-a487-4ea6-9db6-c2eb930ece6d?subscription-key=a8f65ef57fb44a4ab1dadbd61e0e4e66&staging=true&verbose=true&timezoneOffset=0&q=')
+let recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/263d4112-9ec8-4e89-baa7-f5bcdeb9f578?subscription-key=d79ce59b112e4f28b520818f69d74a20&timezoneOffset=0&verbose=true&q=')
 
+// Try saying 'My phone number is 07888453254'.
+// LUIS will identify this as a 'Phone' intent
+// and recognise the number as a 'Number' entity.
 let intents = new builder.IntentDialog({recognizers: [recognizer]})
-  .matches('Number', 'EntityExample')
+  .matches('Phone', 'EntityExample')
+  .onDefault((session) => {
+    session.send('Sorry, I don\'t recognise what you\'re saying. Please try again.')
+  })
 
 bot.library(formBuilder.createLibrary())
 
@@ -23,7 +29,7 @@ bot.dialog('EntityExample', [
     session.beginDialog('FormBuilder:/', {questions: questions, entities: session.dialogData.entities})
   },
   function (session, results) {
-    console.log(results)
+    console.info(results)
     session.endDialog('Thank you for completing the form.')
   }
 ])
