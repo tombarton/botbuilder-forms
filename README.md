@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/tombarton/botbuilder-forms.svg?branch=master)](https://travis-ci.org/tombarton/botbuilder-forms)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![npm version](https://badge.fury.io/js/botbuilder-forms.svg)](https://badge.fury.io/js/botbuilder-forms)
 
-
-A simple module that allows you to easily add form flows to the Node [Bot Builder SDK](https://github.com/Microsoft/BotBuilder).
+A simple module that allows you to  add form flows to the Node [Bot Builder SDK](https://github.com/Microsoft/BotBuilder).
 
 ## Installation
 
@@ -98,7 +98,19 @@ Entities can be passed to the form builder via the arguments parameter. In order
   ]
 ```
 
-A working example can be found in `examples/entities.js`.
+A working example can be found in `examples/entities.js`. Simple run `npm install` and `node examples/entities`.
+
+### Examples
+
+The following examples are available:
+
+#### Basic
+
+Basic form flow without LUIS entities. Run with `node examples/basic`.
+
+#### Entities
+
+Similar form flow to 'Basic' example, however, it makes use of the `entityCheck` helper to process any entities LUIS has identified.
 
 ### Tests
 
