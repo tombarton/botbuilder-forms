@@ -110,7 +110,7 @@ Basic form flow without LUIS entities. Run with `node examples/basic`.
 
 #### Entities
 
-Similar form flow to 'Basic' example, however, it makes use of the `entityCheck` helper to process any entities LUIS has identified.
+Similar form flow to 'Basic' example, however, it makes use of the `entityCheck` helper to process any entities LUIS has identified. Run with `node examples/entities`.
 
 ### Tests
 
