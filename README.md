@@ -16,17 +16,9 @@ A simple module that allows you to  add form flows to the Node [Bot Builder SDK]
   const builder = require('botbuilder')
   const formBuilder = require('botbuilder-forms')
 
-  let connector = new builder.ConsoleConnector().listen()
-  var bot = new builder.UniversalBot(connector, [
-    function (session) {
-      session.beginDialog('FormBuilder:/', {questions: questions})
-    },
-    function (session, results) {
-      console.log(results)
-    }
-  ])
+  const connector = new builder.ConsoleConnector().listen()
 
-  let questions = [
+  const questions = [
     {
       field: 'Number',
       question: 'What is your mobile number?',
@@ -39,6 +31,15 @@ A simple module that allows you to  add form flows to the Node [Bot Builder SDK]
       question: 'What is your postcode?'
     }
   ]
+  
+  const bot = new builder.UniversalBot(connector, [
+    function (session) {
+      session.beginDialog('FormBuilder:/', {questions: questions})
+    },
+    function (session, results) {
+      console.log(results)
+    }
+  ])
 
   bot.library(formBuilder.createLibrary())
   ```
